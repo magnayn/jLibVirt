@@ -1,6 +1,7 @@
 package com.nirima.libvirt;
 
-import com.nirima.libvirt.model.NodeInfo;
+
+import com.nirima.libvirt.model.RemoteNodeInfo;
 import com.nirima.libvirt.remote.ILibVirt;
 import com.nirima.libvirt.xdr.XDR;
 
@@ -30,9 +31,9 @@ public class Connect {
         return libVirt;
     }
 
-    public NodeInfo nodeInfo() throws IOException, InstantiationException, IllegalAccessException {
+    public RemoteNodeInfo nodeInfo() throws IOException, InstantiationException, IllegalAccessException {
 
-        NodeInfo nodeInfo = libVirt.nodeGetInfo();
+        RemoteNodeInfo nodeInfo = libVirt.nodeGetInfo();
 
         return nodeInfo;
     }
@@ -50,15 +51,14 @@ public class Connect {
     }
 
     public int numOfDomains() {
-        return libVirt.numOfDefinedDomains();
+        return libVirt.connectNumOfDefinedDomains();
     }
 
     public int[] listDomains() {
         int maxids = numOfDomains();
 
-
         if (maxids > 0) {
-            return libVirt.listDomains(maxids);
+            return libVirt.connectListDomains(maxids);
         } else {
             return new int[0];
         }
@@ -68,7 +68,7 @@ public class Connect {
         int maxids = numOfDomains();
 
         if( maxids > 0 )
-            return libVirt.listDefinedDomains(maxids);
+            return libVirt.connectListDefinedDomains(maxids);
         else
             return new String[0];
     }

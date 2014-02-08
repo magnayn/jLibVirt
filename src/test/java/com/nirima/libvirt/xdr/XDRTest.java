@@ -1,10 +1,12 @@
 package com.nirima.libvirt.xdr;
 
-import com.nirima.libvirt.model.NodeInfo;
+import com.nirima.libvirt.model.RemoteNodeInfo;
 import com.nirima.libvirt.model.RemoteDomain;
 import com.nirima.libvirt.model.RemoteDomainInfo;
 import com.nirima.libvirt.model.RemoteDomainSnapshot;
 import com.nirima.libvirt.util.Utils;
+
+
 import junit.framework.TestCase;
 
 import java.io.ByteArrayInputStream;
@@ -36,7 +38,7 @@ public class XDRTest extends TestCase {
     }
 
     public void testRoundTrip1() throws IOException, IllegalAccessException, InstantiationException {
-        NodeInfo nodeInfo = new NodeInfo();
+        RemoteNodeInfo nodeInfo = new RemoteNodeInfo();
 
         nodeInfo.model[0] = 'X';
         nodeInfo.model[1] = 'Z';
@@ -44,7 +46,7 @@ public class XDRTest extends TestCase {
         nodeInfo.cores = 1;
         nodeInfo.threads = 4;
 
-        NodeInfo nodeInfoRT = (NodeInfo) rt(nodeInfo);
+        RemoteNodeInfo nodeInfoRT = (RemoteNodeInfo) rt(nodeInfo);
 
         assertEquals(nodeInfo.toString(), nodeInfoRT.toString());
     }
@@ -86,7 +88,7 @@ public class XDRTest extends TestCase {
 
         RemoteDomainSnapshot nodeInfo = new RemoteDomainSnapshot();
 
-        nodeInfo.domain = makeRemoteDomain();
+        nodeInfo.dom = makeRemoteDomain();
         nodeInfo.name = "BLAHS";
 
         RemoteDomainSnapshot nodeInfoRT = (RemoteDomainSnapshot) rt(nodeInfo);

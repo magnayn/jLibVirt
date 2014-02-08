@@ -8,9 +8,9 @@ import java.io.Serializable;
 /**
  * @author Nigel Magnay
  */
-public class NodeInfo implements Serializable {
+public class RemoteNodeInfo implements Serializable {
 
-    @XDRField(length=32)
+    @XDRField(length = 32)
     public char[] model = new char[32];
 
     public long memory;
@@ -34,4 +34,6 @@ public class NodeInfo implements Serializable {
                 .add("threads", threads)
                 .toString();
     }
+
+
 }

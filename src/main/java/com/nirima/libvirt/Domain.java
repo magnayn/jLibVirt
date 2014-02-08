@@ -69,8 +69,8 @@ public class Domain {
         return getLibVirt().domainRevertToSnapshot(snapshot.getId(), 0);
     }
 
-    public int create() {
-        return getLibVirt().domainCreate(id);
+    public void create() {
+        getLibVirt().domainCreate(id);
     }
 
     public RemoteDomainInfo getInfo() {

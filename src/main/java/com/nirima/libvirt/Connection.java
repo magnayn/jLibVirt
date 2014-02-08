@@ -52,11 +52,8 @@ public class Connection {
         OutputStream outputStream = command.getOutputStream();
         InputStream inputStream = command.getInputStream();
 
-
         dos = new XDROutputStream(outputStream);
-
-        InputStream is = command.getInputStream();
-        dataInputStream = new XDRInputStream(is);
+        dataInputStream = new XDRInputStream(inputStream);
     }
 
     public boolean isConnected() {
