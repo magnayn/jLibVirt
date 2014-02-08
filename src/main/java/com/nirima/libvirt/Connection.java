@@ -60,7 +60,7 @@ public class Connection {
         return client.isConnected();
     }
 
-    public Packet sendPacket(Packet packet) throws IOException, IllegalAccessException, InstantiationException {
+    public synchronized Packet sendPacket(Packet packet) throws IOException, IllegalAccessException, InstantiationException {
 
         packet.write(dos);
 
