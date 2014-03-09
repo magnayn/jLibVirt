@@ -50,8 +50,12 @@ public class Connect {
         c.close();
     }
 
-    public int numOfDomains() {
+    public int numOfDefinedDomains() {
         return libVirt.connectNumOfDefinedDomains();
+    }
+
+    public int numOfDomains() {
+        return libVirt.connectNumOfDomains();
     }
 
     public int[] listDomains() {
@@ -65,7 +69,7 @@ public class Connect {
     }
 
     public String[] listDefinedDomains() {
-        int maxids = numOfDomains();
+        int maxids = numOfDefinedDomains();
 
         if( maxids > 0 )
             return libVirt.connectListDefinedDomains(maxids);

@@ -655,7 +655,7 @@ public interface ILibVirt {
     RemoteDomainSnapshot domainSnapshotCurrent(@Nonnull RemoteDomain dom, int flags);
 
     @XDRMethod(proc = 192)
-    int domainRevertToSnapshot(@Nonnull RemoteDomainSnapshot snap, int flags);
+    void domainRevertToSnapshot(@Nonnull RemoteDomainSnapshot snap, int flags);
 
     @XDRMethod(proc = 193)
     void domainSnapshotDelete(@Nonnull RemoteDomainSnapshot snap, int flags);

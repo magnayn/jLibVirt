@@ -2,6 +2,8 @@ package com.nirima.libvirt.xdr;
 
 import com.nirima.libvirt.Connection;
 import com.nirima.libvirt.Packet;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
@@ -14,6 +16,8 @@ import java.lang.reflect.Method;
  * @author Nigel Magnay
  */
 public class XDRInvocationHandler implements InvocationHandler {
+
+    private static final Logger log = LoggerFactory.getLogger(XDRInvocationHandler.class);
 
     private final Connection connection;
     private final Class<?> theInterface;
@@ -30,6 +34,8 @@ public class XDRInvocationHandler implements InvocationHandler {
         XDRInterface interfaceInfo = theInterface.getAnnotation(XDRInterface.class);
 
         int proc = methodInfo.proc();
+
+        log.info("Invoking {}", method.getName());
 
         byte[] data = null;
 
@@ -61,6 +67,12 @@ public class XDRInvocationHandler implements InvocationHandler {
 
         Class<?> returnType = method.getReturnType();
         if( returnType != null && returnType != void.class ) {
+
+            if( inboundPacket.data == null ) {
+                log.error("Interface for {} declared to have return type {} but no data. Returning null anyway.", method.getName(), returnType);
+                return null;
+            }
+
             XDRInputStream xdrInputStream = new XDRInputStream(new ByteArrayInputStream(inboundPacket.data));
             return XDR.read(xdrInputStream, returnType);
         }

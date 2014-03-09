@@ -35,6 +35,14 @@ public class Domain {
         getLibVirt().domainShutdown(id);
     }
 
+    public void suspend() {
+        getLibVirt().domainSuspend(id);
+    }
+
+    public void destroy() {
+        getLibVirt().domainDestroy(id);
+    }
+
     public String[] snapshotListNames() {
         return snapshotListNames(0);
     }
@@ -65,8 +73,8 @@ public class Domain {
         return returnValue;
     }
 
-    public int revertToSnapshot(DomainSnapshot snapshot) {
-        return getLibVirt().domainRevertToSnapshot(snapshot.getId(), 0);
+    public void revertToSnapshot(DomainSnapshot snapshot) {
+        getLibVirt().domainRevertToSnapshot(snapshot.getId(), 0);
     }
 
     public void create() {
